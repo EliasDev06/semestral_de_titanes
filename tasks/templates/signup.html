@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Signup</h1>
+    <!--la ruta de action se debe cambiar-->
+    <form action='/signup/' method="POST">
+        {{error}}
+        {%csrf_token%}
+        {{form.as_p}}
+        <button>
+            Signup
+        </button>
+    </form>
+{% endblock %}
