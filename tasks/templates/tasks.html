@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Tasks</h1>
+    <h1>Galeria</h1>
+
     <ul>
         {% for task in tasks %}
+        <div>
+            <img src="../media/{{task.img}}" alt="no  encontrada"  width="100" height="100">
+        </div>
         <li>
             <a href="{% url 'task_detail' task.id %}">
                 {% if task.important %}

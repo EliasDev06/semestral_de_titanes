@@ -14,13 +14,11 @@
             {% if user.is_authenticated %}
             
             <li>
-                <a href="{% url 'tasks'%}">Tasks</a>
+                <a href="{% url 'tasks'%}">My galeria interna</a>
             </li>
+            
             <li>
-                <a href="{% url 'tasks_complete'%}">Tasks Completed</a>
-            </li>
-            <li>
-                <a href="/tasks/create">Create Tasks</a>
+                <a href="/tasks/create">Subir imagen</a>
             </li>
             <li>
                 <a href="/logout">Logout</a>

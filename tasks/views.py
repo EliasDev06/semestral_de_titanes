@@ -13,7 +13,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'home.html')
+    tasks = Task.objects.filter(datecompleted__isnull=True).order_by('-datecompleted')
+    return render(request, 'home.html', {'tasks':tasks})
 
 
 def signup(request):
@@ -55,7 +56,10 @@ def task_detailt(request, task_id):
     else:
         try:
             task = get_object_or_404(Task, pk = task_id, user=request.user)
+            last_img = task.img
             form = TaskFrom(request.POST, instance=task)
+            if form.img == 'imagenes_bd/test-picture-3061864_1280.png':
+                form.img = last_img
             form.save()
             return redirect('tasks')
         except:
@@ -65,7 +69,11 @@ def task_detailt(request, task_id):
 @login_required
 def complete_task(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
+    last_img = task.img
+    print(last_img)
     if request.method == 'POST':
+        if task.img == '/tasks/media/imagenes_bd/test-picture-3061864_1280.png':
+                task.img = last_img
         task.datecompleted = timezone.now()
         task.save()
         return redirect('tasks')
@@ -111,6 +119,11 @@ def create_task(request):
        try:
             form = TaskFrom(request.POST)
             new_task = form.save(commit=False)
+            # si no inserta la imagen se le da una direccion en todo caso
+            try:
+                new_task.img = request.FILES['img']
+            except:
+                new_task.img = 'imagenes_bd/test-picture-3061864_1280.png'
             new_task.user = request.user 
             new_task.save()
             print(new_task)
