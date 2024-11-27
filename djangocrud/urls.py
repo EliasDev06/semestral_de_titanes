@@ -26,9 +26,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('tasks/', views.tasks, name='tasks'),
     path('tasks/create/', views.create_task, name='create_tasks'),
-    path('tasks/complete/', views.tasks_complete, name='tasks_complete'),
     path('tasks/<int:task_id>/', views.task_detailt, name='task_detail'),
-    path('tasks/<int:task_id>/complete/', views.complete_task, name='complete_task'),
     path('tasks/<int:task_id>/delete/', views.delete_task, name='delete_task'),
     path('logout/', views.signot, name='logout'),
     path('signin/', views.signin, name='signin'),
@@ -38,3 +36,6 @@ urlpatterns = [
 #carga imagens
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

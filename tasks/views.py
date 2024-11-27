@@ -8,6 +8,7 @@ from .forms import TaskFrom
 from .models import Task
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+#Las views tienen nombres de Task porque nos guíamos de un tutorial de agenda de tareas
 
 # Create your views here.
 
@@ -35,7 +36,7 @@ def signup(request):
                 return render(request, 'signup.html', {
                     'form': UserCreationForm, 'error': 'Usuario ya existe'})
         return render(request, 'signup.html', {
-            'form': UserCreationForm, 'error': 'Contraseñas no coinsiden'})
+            'form': UserCreationForm, 'error': 'Contraseñas no coinciden'})
 
 @login_required
 def tasks(request):#muestra las tareas  (las tareas no completadas)
@@ -43,14 +44,9 @@ def tasks(request):#muestra las tareas  (las tareas no completadas)
     return render(request, 'tasks.html', {'tasks':tasks})
 
 @login_required
-def tasks_complete (request):#muestra las tareas completadas
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False)
-    return render(request, 'tasks.html', {'tasks':tasks})
-
-@login_required
 def task_detailt(request, task_id):
     if request.method == 'GET':
-        task = get_object_or_404(Task, pk = task_id)
+        task = get_object_or_404(Task, pk = task_id, user=request.user)
         form = TaskFrom(instance=task)
         return render(request, 'task_detail.html',{'task':task, 'form':form})
     else:
@@ -66,17 +62,6 @@ def task_detailt(request, task_id):
             return render(request, 'task_detail.html',
                           {'task':task, 'form':form,'error':'Error actualizando'})
 
-@login_required
-def complete_task(request, task_id):
-    task = get_object_or_404(Task, pk=task_id)
-    last_img = task.img
-    print(last_img)
-    if request.method == 'POST':
-        if task.img == '/tasks/media/imagenes_bd/test-picture-3061864_1280.png':
-                task.img = last_img
-        task.datecompleted = timezone.now()
-        task.save()
-        return redirect('tasks')
 
 @login_required
 def delete_task (request, task_id):

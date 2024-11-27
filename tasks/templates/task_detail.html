@@ -1,23 +1,33 @@
 {% extends "base.html" %}
+{% load forms_extras %}
 {% block content %}
-    <h1>{{task.title}}</h1>
+    <h1 class="text-center">{{task.title}}</h1>
     {{error}}
     <form action='' method='POST' enctype="multipart/form-data">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4"></div>
         {% csrf_token %}
-        {% if form.img %}
-            {{form}}
-            <div>
-                <img src="../media/{{task.img}}" alt="no  encontrada"  width="100" height="100">
-            </div>
-        {% else %}
-            {{form}}
-        {% endif %}
-    </form>
 
-<form action="{% url 'delete_task' task.id %}" method='POST'>
+        {% if form.img %}
+        <div class="col-auto">
+            <label for="{{ form.img.description }}" class="form-label">Etiquetas</label>
+            {{ form.description|add_class:"form-control" }} 
+        <div class="mb-3">
+            <img src="{{ task.img.url }}" class="img-fluid" alt="Imagen no encontrada">
+        </div>
+    {% else %}
+        <div class="mb-3">
+            <label for="{{ form.img.id_for_label }}" class="form-label">Imagen</label>
+            {{ form.img|add_class:"form-control" }}
+        </div>
+    {% endif %}
+
+<form action="{% url 'delete_task' task.id %}" method="POST">
     {% csrf_token %}
-    <button>
-        Eliminar
-    </button>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-danger">Eliminar imagen</button>
+    </div>
 </form>
 {% endblock %}
