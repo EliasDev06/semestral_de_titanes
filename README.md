@@ -41,4 +41,4 @@ Los usuarios pueden subir imágenes a un perfil, etiquetarlas y organizarlas en 
 
 ![Captura de pantalla de la página principal de la aplicación Web que contiene la imagen que acabamos de subir](<Captura de pantalla 2024-11-27 114212.png>)
 
-* Y la imagen que acabamos de subir se muestrá en la página principal!
+* Y la imagen que acabamos de subir se muestra en la página principal!
