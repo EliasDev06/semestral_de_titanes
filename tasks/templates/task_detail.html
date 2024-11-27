@@ -11,9 +11,11 @@
         {% csrf_token %}
 
         {% if form.img %}
-        <div class="col-auto">
-            <label for="{{ form.img.description }}" class="form-label">Etiquetas</label>
-            {{ form.description|add_class:"form-control" }} 
+        <div class="mb-3">
+            <h2><label for="{{ form.img.description }}" class="form-label">Etiquetas</label></h2>
+            <h3>{{ form.description|add_class:"form-control-plaintext mb-3 readonly" }} </h3>
+        </div>
+        
         <div class="mb-3">
             <img src="{{ task.img.url }}" class="img-fluid" alt="Imagen no encontrada">
         </div>
